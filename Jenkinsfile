@@ -3,19 +3,30 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building the applications....'
+        sh 'echo Build'
       }
     }
 
     stage('test') {
-      steps {
-        echo 'testing the application..'
+      parallel {
+        stage('test') {
+          steps {
+            sh 'echo test'
+          }
+        }
+
+        stage('Uni test') {
+          steps {
+            sh 'echo Unit'
+          }
+        }
+
       }
     }
 
     stage('deploy') {
       steps {
-        echo 'deplying the application..'
+        sh 'echo Deploy'
       }
     }
 
