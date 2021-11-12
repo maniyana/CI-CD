@@ -1,26 +1,46 @@
 pipeline {
-  options {
-      timeout(time: 90, activity: true, unit: 'MINUTES')
-  }
   agent none
   stages {
-    stage('Build') {
-      steps {
-        sh 'echo Build'
+    stage('IAR') {
+      parallel {
+        stage('IAR') {
+          steps {
+            sh 'echo Build'
+          }
+        }
+
+        stage('linux') {
+          steps {
+            sh 'echo Linux'
+          }
+        }
+
+        stage('PC lint') {
+          steps {
+            sh 'echo PC lint'
+          }
+        }
+
       }
     }
 
-    stage('test') {
+    stage('flash') {
       parallel {
-        stage('test') {
+        stage('flash') {
           steps {
             sh 'echo test'
           }
         }
 
-        stage('Uni test') {
+        stage('flash test') {
           steps {
-            sh 'echo Unit'
+            sh 'echo flash'
+          }
+        }
+
+        stage('Unit Testing') {
+          steps {
+            sh 'echo Unit testing'
           }
         }
 
@@ -28,12 +48,24 @@ pipeline {
     }
 
     stage('deploy') {
-      steps {
-        sh 'echo Deploy'
+      parallel {
+        stage('deploy') {
+          steps {
+            sh 'echo Deploy'
+          }
+        }
+
+        stage('positive') {
+          steps {
+            sh 'echo positive'
+          }
+        }
+
       }
     }
 
   }
+  options {
+    timeout(time: 90, activity: true, unit: 'MINUTES')
+  }
 }
-
-
