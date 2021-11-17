@@ -1,0 +1,15 @@
+For example, from the command line we could navigate to the Help/guide/tutorial directory of the CMake source code tree and create a build directory:
+
+mkdir Step1_build
+Next, navigate to the build directory and run CMake to configure the project and generate a native build system:
+
+cd Step1_build
+cmake ../Step1
+Then call that build system to actually compile/link the project:
+
+cmake --build .
+Finally, try to use the newly built Tutorial with these commands:
+
+Tutorial 4294967296
+Tutorial 10
+Tutorial
