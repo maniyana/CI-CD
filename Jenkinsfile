@@ -1,4 +1,7 @@
 pipeline {
+  options {
+    timeout(time: 90, activity: true, unit: 'MINUTES')
+  }
   agent none
   stages {
     stage('IAR') {
@@ -65,7 +68,5 @@ pipeline {
     }
 
   }
-  options {
-    timeout(time: 90, activity: true, unit: 'MINUTES')
-  }
+  
 }
