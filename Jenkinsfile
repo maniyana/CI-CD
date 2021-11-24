@@ -3,53 +3,28 @@ pipeline {
   stages {
     stage('Build') {
       parallel {
-        stage('Build') {
+        stage('Server') {
           steps {
-            sh 'echo Build'
+            sh '''echo "Building the server code."
+mvn -version
+mkdir -p target
+touch "target/server.war"'''
+            stash(name: 'server', includes: '**/*.war')
           }
         }
 
-        stage('linux') {
+        stage('Client') {
           steps {
-            sh 'echo linux'
+            sh '''echo "Building the client code."
+npm install --save react
+mkdir -p dist
+cat > dist/index.html <<EOF
+hello!
+EOF
+touch "dist/client.js"'''
           }
         }
 
-        stage('PC lint') {
-          steps {
-            sh 'echo PC lint'
-          }
-        }
-
-      }
-    }
-
-    stage('Sign') {
-      parallel {
-        stage('Sign') {
-          steps {
-            sh 'echo sign'
-          }
-        }
-
-        stage('IAR') {
-          steps {
-            sh 'echo IAR'
-          }
-        }
-
-        stage('Unit Testing') {
-          steps {
-            sh 'echo unit testing'
-          }
-        }
-
-      }
-    }
-
-    stage('deploy') {
-      steps {
-        sh 'echo Deploy'
       }
     }
 
