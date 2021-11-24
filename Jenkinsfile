@@ -1,9 +1,10 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
       parallel {
         stage('Server') {
+          agent any
           steps {
             sh '''echo "Building the server code."
 mvn -version
