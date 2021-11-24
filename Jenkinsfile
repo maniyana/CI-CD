@@ -1,55 +1,35 @@
 pipeline {
-  agent any
+  options {
+      timeout(time: 90, activity: true, unit: 'MINUTES')
+  }
+  agent none
   stages {
-    stage('IAR') {
-      parallel {
-        stage('IAR') {
-          steps {
-            sh 'Build IAR'
-          }
-        }
-
-        stage('linux') {
-          steps {
-            sh 'Build Linux'
-          }
-        }
-
-        stage('PC lint') {
-          steps {
-            sh 'Build PC lint'
-          }
-        }
-
-      }
-    }
-
-    stage('Flash') {
-      parallel {
-        stage('Flash') {
-          steps {
-            sh 'Build Flash'
-          }
-        }
-
-        stage('Positive') {
-          steps {
-            echo 'Print response'
-          }
-        }
-
-        stage('Unit') {
-          steps {
-            sh 'Build Unit'
-          }
-        }
-
-      }
-    }
-
-    stage('Tech') {
+    stage('Build') {
       steps {
-        sh 'Build Tech'
+        sh 'echo Build'
+      }
+    }
+
+    stage('test') {
+      parallel {
+        stage('test') {
+          steps {
+            sh 'echo test'
+          }
+        }
+
+        stage('Uni test') {
+          steps {
+            sh 'echo Unit'
+          }
+        }
+
+      }
+    }
+
+    stage('deploy') {
+      steps {
+        sh 'echo Deploy'
       }
     }
 
