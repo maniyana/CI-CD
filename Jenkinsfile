@@ -15,9 +15,9 @@ pipeline {
                 """
             }
         }
-        stage('Develop Branch Deploy Code') {
+        stage('new3-jenkins Branch Deploy Code') {
             when {
-                branch 'develop'
+                branch 'new3-jenkins'
             }
             steps {
                 sh """
