@@ -19,6 +19,7 @@ pipeline {
             when {
                 branch 'new3-jenkins'
             }
+            
             steps {
                 sh """
                 echo "Building Artifact from Develop branch"
